@@ -22,6 +22,11 @@ folium = "*"
 "json2html" = "*"
 readme-renderer = "*"
 pylint = "*"
+cython = "*"
+pyproj = {git = "https://github.com/jswhit/pyproj.git"}
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true

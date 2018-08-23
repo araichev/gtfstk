@@ -3,13 +3,21 @@ notifications:
 addons:
   apt:
     packages:
-    - libgdal1h
+    - libgdal1i
     - gdal-bin
     - libgdal-dev
     - libspatialindex-dev
 language: python
-python:
-  - "3.6"
+# workaround for Python 3.7
+# see https://github.com/travis-ci/travis-ci/issues/9815
+matrix:
+  include:
+    - python: 3.6
+      dist: xenial
+      sudo: true
+    - python: 3.7
+      dist: xenial
+      sudo: true
 # command to install dependencies
 install:
   - pip install pipenv

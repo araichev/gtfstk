@@ -1278,13 +1278,14 @@ def check_stop_times(
     prev_tid = None
     prev_atime = 1
     prev_dtime = 1
+    prev_index = None
     for i, tid, atime, dtime, tp in f[
         ["trip_id", "arrival_time", "departure_time", "timepoint"]
     ].itertuples():
         if tid != prev_tid:
             # Check last stop of previous trip
             if pd.isna(prev_atime) or pd.isna(prev_dtime):
-                indices.append(i - 1)
+                indices.append(prev_index)
             # Check first stop of current trip
             if pd.isna(atime) or pd.isna(dtime):
                 indices.append(i)
@@ -1295,6 +1296,7 @@ def check_stop_times(
         prev_tid = tid
         prev_atime = atime
         prev_dtime = dtime
+        prev_index = i
 
     if indices:
         problems.append(

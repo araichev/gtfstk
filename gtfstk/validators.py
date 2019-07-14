@@ -1037,7 +1037,7 @@ def check_shapes(
     if feed.shapes is None:
         return problems
 
-    f = feed.shapes.copy()
+    f = feed.shapes.copy().sort_values(["shape_id", "shape_pt_sequence"])
     problems = check_for_required_columns(problems, table, f)
     if problems:
         return format_problems(problems, as_df=as_df)
@@ -1072,13 +1072,15 @@ def check_shapes(
         indices = []
         prev_sid = None
         prev_dist = -1
+        prev_index = None
         cols = ["shape_id", "shape_dist_traveled"]
         for i, sid, dist in g[cols].itertuples():
             if sid == prev_sid and dist < prev_dist:
-                indices.append(i)
+                indices.append(prev_index)
 
             prev_sid = sid
             prev_dist = dist
+            prev_index = i
 
         if indices:
             problems.append(

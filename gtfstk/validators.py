@@ -1478,7 +1478,7 @@ def check_trips(
 
     # Check for trips with no stop times
     if include_warnings:
-        s = feed.stop_times["trip_id"]
+        s = feed.stop_times["trip_id"] if feed.stop_times is not None else []
         cond = ~f["trip_id"].isin(s)
         problems = check_table(
             problems, table, f, cond, "Trip has no stop times", "warning"

@@ -439,14 +439,21 @@ def test_check_shapes():
         assert check_shapes(feed1)
 
     feed1 = feed.copy()
-    feed.shapes["shape_pt_sequence"].iat[1] = feed.shapes[
+    feed1.shapes["shape_pt_sequence"].iat[1] = feed1.shapes[
         "shape_pt_sequence"
     ].iat[0]
-    assert check_shapes(feed)
+    assert check_shapes(feed1)
 
     feed1 = feed.copy()
     feed1.shapes["shape_dist_traveled"].iat[1] = 0
     assert check_shapes(feed1)
+
+    feed1 = feed.copy()
+    t1 = feed1.shapes.iloc[0].copy()
+    t2 = feed1.shapes.iloc[1].copy()
+    feed1.shapes.iloc[0] = t2
+    feed1.shapes.iloc[1] = t1
+    assert not check_shapes(feed1)
 
 
 def test_check_stops():
@@ -596,6 +603,8 @@ def test_check_stop_times():
 
     # Return the correct index of the missing time
     feed = sample.copy()
+    # Index 2 is the first stop of the second trip
+    # Index 2 is the last stop of the second trip
     feed.stop_times["arrival_time"].iat[6] = np.nan
     t1, t2 = feed.stop_times.iloc[2].copy(), feed.stop_times.iloc[6].copy()
     feed.stop_times.iloc[2], feed.stop_times.iloc[6] = t2, t1
@@ -603,7 +612,7 @@ def test_check_stop_times():
 
     # Check for last stop of last trip
     # Trips are ordered by trip_id so the STBA trip_id from the sample feed
-    # is last
+    # is last and its last stop (index 1) is the last row
     feed = sample.copy()
     feed.stop_times["arrival_time"].iat[1] = np.nan
     assert check_stop_times(feed)
@@ -698,3 +707,6 @@ def test_check_trips():
 
 def test_validate():
     assert not validate(sample, as_df=False, include_warnings=False)
+
+if __name__ == "__main__":
+    test_check_shapes()

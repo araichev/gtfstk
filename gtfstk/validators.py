@@ -1041,6 +1041,7 @@ def check_shapes(
     problems = check_for_required_columns(problems, table, f)
     if problems:
         return format_problems(problems, as_df=as_df)
+    f.sort_values(["shape_id", "shape_pt_sequence"], inplace=True)
 
     if include_warnings:
         problems = check_for_invalid_columns(problems, table, f)
@@ -1071,13 +1072,15 @@ def check_shapes(
         g = f.dropna(subset=["shape_dist_traveled"])
         indices = []
         prev_sid = None
+        prev_index = None
         prev_dist = -1
         cols = ["shape_id", "shape_dist_traveled"]
         for i, sid, dist in g[cols].itertuples():
             if sid == prev_sid and dist < prev_dist:
-                indices.append(i)
+                indices.append(prev_index)
 
             prev_sid = sid
+            prev_index = i
             prev_dist = dist
 
         if indices:

@@ -18,7 +18,7 @@ if TYPE_CHECKING:
     from .feed import Feed
 
 
-TIME_PATTERN1 = re.compile(r"^[0,1,2,3]\d:\d\d:\d\d$")
+TIME_PATTERN1 = re.compile(r"^\d\d:\d\d:\d\d$")
 TIME_PATTERN2 = re.compile(r"^\d:\d\d:\d\d$")
 DATE_FORMAT = "%Y%m%d"
 TIMEZONES = set(pytz.all_timezones)

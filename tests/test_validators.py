@@ -400,6 +400,10 @@ def test_check_routes():
     assert not check_routes(feed)
     assert check_routes(feed, include_warnings=True)
 
+    feed = sample.copy()
+    feed.agency = None
+    assert check_routes(feed)
+
 
 def test_check_shapes():
     assert not check_shapes(sample)

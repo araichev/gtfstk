@@ -594,6 +594,20 @@ def test_check_stop_times():
     assert not check_stop_times(feed)
     assert check_stop_times(feed, include_warnings=True)
 
+    # Return the correct index of the missing time
+    feed = sample.copy()
+    feed.stop_times["arrival_time"].iat[6] = np.nan
+    t1, t2 = feed.stop_times.iloc[2].copy(), feed.stop_times.iloc[6].copy()
+    feed.stop_times.iloc[2], feed.stop_times.iloc[6] = t2, t1
+    assert check_stop_times(feed)[0][3][0] == 2
+
+    # Check for last stop of last trip
+    # Trips are ordered by trip_id so the STBA trip_id from the sample feed
+    # is last
+    feed = sample.copy()
+    feed.stop_times["arrival_time"].iat[1] = np.nan
+    assert check_stop_times(feed)
+
 
 def test_check_transfers():
     assert not check_transfers(sample)

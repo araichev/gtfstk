@@ -707,6 +707,3 @@ def test_check_trips():
 
 def test_validate():
     assert not validate(sample, as_df=False, include_warnings=False)
-
-if __name__ == "__main__":
-    test_check_shapes()

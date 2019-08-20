@@ -13,7 +13,8 @@ def test_valid_str():
 def test_valid_time():
     assert valid_time("2:43:00")
     assert valid_time("22:43:00")
-    assert not valid_time("42:43:00")
+    assert valid_time("42:43:00")
+    assert not valid_time("142:43:00")
 
 
 def test_valid_date():

@@ -956,7 +956,16 @@ def check_routes(
 
     # Check agency_id
     if "agency_id" in f:
-        if "agency_id" not in feed.agency.columns:
+        if feed.agency is None:
+            problems.append(
+                [
+                    "error",
+                    "agency_id column present in routes agency table missing",
+                    table,
+                    [],
+                ]
+            )
+        elif "agency_id" not in feed.agency.columns:
             problems.append(
                 [
                     "error",

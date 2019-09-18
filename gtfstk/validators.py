@@ -1224,7 +1224,10 @@ def check_stops(
 
     if include_warnings:
         # Check for stops of location type 0 or NaN without stop times
-        ids = feed.stop_times.stop_id.unique()
+        ids = []
+        if feed.stop_times is not None:
+            ids = feed.stop_times.stop_id.unique()
+
         cond = ~feed.stops.stop_id.isin(ids)
         if "location_type" in feed.stops.columns:
             cond &= f.location_type.isin([0, np.nan])

@@ -531,6 +531,11 @@ def test_check_stops():
     assert not check_stops(feed)
     assert check_stops(feed, include_warnings=True)
 
+    feed = sample.copy()
+    feed.stop_times = None
+    assert not check_stops(feed)
+    assert check_stops(feed, include_warnings=True)
+
 
 def test_check_stop_times():
     assert not check_stop_times(sample)

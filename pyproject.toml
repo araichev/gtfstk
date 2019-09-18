@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gtfstk"
-version = "10.0.6"
+version = "10.0.7"
 description = "A Python 3.6+ library for analyzing GTFS feeds."
 authors = ["Alex Raichev <araichev@mrcagney.com>"]
 readme = "README.rst"

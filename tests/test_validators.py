@@ -687,6 +687,11 @@ def test_check_trips():
     assert not check_trips(feed)
     assert check_trips(feed, include_warnings=True)
 
+    feed = sample.copy()
+    feed.stop_times = None
+    assert not check_trips(feed)
+    assert check_trips(feed, include_warnings=True)
+
 
 def test_validate():
     assert not validate(sample, as_df=False, include_warnings=False)

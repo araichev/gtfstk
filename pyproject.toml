@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gtfstk"
-version = "10.0.5"
+version = "10.0.7"
 description = "A Python 3.6+ library for analyzing GTFS feeds."
 authors = ["Alex Raichev <araichev@mrcagney.com>"]
 readme = "README.rst"
@@ -11,7 +11,7 @@ exclude = ["tests", "docs"]
 
 [tool.poetry.dependencies]
 python = "^3.6 || ^3.7"
-pandas = "^0.24"
+pandas = "<1"
 shapely = "^1.6"
 pycountry = "^18.5"
 utm = "^0.4.2"
@@ -24,29 +24,10 @@ sphinx = "^1.8"
 pre-commit = "^1.12"
 black = "=19.3b0"
 publish_sphinx_docs = "^1.0"
-geopandas = "^0.4.0"
-rtree = "^0.8.3"
-folium = "^0.7.0"
+geopandas = "<1"
+rtree = "<1"
+folium = "<1"
 matplotlib = "^3.0"
-mypy = "^0.670.0"
-
-[tool.black]
-line-length = 79
-py36 = true
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-)/
-'''
 
 [build-system]
 requires = ["poetry>=0.12"]
